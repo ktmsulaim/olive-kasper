@@ -1,7 +1,7 @@
 $(function () {
   $(".slick-slider").slick({
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 300,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -43,7 +43,7 @@ $(function () {
   $(".slick-slider-logos").slick({
     dots: false,
     arrows: false,
-    infinite: false,
+    infinite: true,
     speed: 300,
     slidesToShow: 6,
     slidesToScroll: 1,
@@ -135,7 +135,9 @@ $(function () {
       }
 
       menu.hide()
-      nav.on('click', '#mobile-menu-toggle', function() {
+      nav.on('click', '#mobile-menu-toggle', function(event) {
+        event.stopPropagation();
+
         if(!$('.menu-overlay').length) {
           $('body').append(`<div class="menu-overlay"></div>`).hide().fadeIn()
         } else {
@@ -144,13 +146,17 @@ $(function () {
         menu.slideToggle('fast')
       })
 
-      $('body').on('click', '.menu-overlay', function() {
+      $('body').on('click', '.menu-overlay', function(event) {
+        event.stopPropagation()
+
         menu.slideUp('fast', function() {
           $('.menu-overlay').fadeOut().remove()
         })
       })
 
-      $('.nav-menu-item').click(function() {
+      $('.nav-menu-item').click(function(event) {
+        event.stopPropagation();
+        
         menu.slideUp('fast', function() {
           $('.menu-overlay').fadeOut().remove()
         })
